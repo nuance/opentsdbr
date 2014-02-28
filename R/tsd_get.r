@@ -71,7 +71,9 @@ tsd_get_ascii <- function(
     if (verbose) {
         message(format(elapsed, digits=3), "s to fetch ", URLdecode(response$url))
     }
-    if (response$status_code != '200') {
+    
+    code <- as.numeric(response$status_code)
+    if (code < 200 || code >= 300) {
         warning("Response code ", response$status_code)
         warning("URL: ", response$url)
         stop()
